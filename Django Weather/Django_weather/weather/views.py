@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import os
 import requests
 
 def get_weather(request):
@@ -7,11 +8,24 @@ def get_weather(request):
     if request.method == 'POST':
         location = request.POST.get('location', '')
 
-        api_key = open('api_key.txt', 'r').read()
+        # Get the absolute path to the 'api_key.txt' file
+        api_key_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'api_key.txt'))
+
+        try:
+            # Open the file using the absolute path
+            api_key = open(api_key_path, 'r').read()
+        except FileNotFoundError:
+            # Handle the case where the file is not found
+            error_message = "API key file not found. Please check the file path."
+            return render(request, 'index.html', {'error_message': error_message})
 
         result = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}')
 
-        if result.json()['cod'] == "404":
+        if result.status_code != 200:
+            # Handle the case where the request to the weather API is not successful
+            error_message = "Error fetching weather data. Please try again later."
+        elif result.json()['cod'] == "404":
+            # Handle the case where the location is not found
             error_message = "Please enter a valid location"
         else:
             description = result.json()['weather'][0]['description']
@@ -26,5 +40,4 @@ def index(request):
     return render(request, 'index.html')
 
 def result(request):
-    # Placeholder logic for result view
     return render(request, 'result.html', {'result_data': 'Placeholder Result Data'})
