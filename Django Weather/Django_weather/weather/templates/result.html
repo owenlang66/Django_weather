@@ -20,13 +20,24 @@
             margin: 0;
         }
 
-        p {
+        .weather-details {
+            max-width: 400px;
+            margin: 2em auto;
+            background-color: #ffffff; /* White content background */
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
             color: #1a1a1a; /* Dark gray text */
+        }
+
+        p {
             margin-bottom: 0.5em;
         }
 
         form {
             text-align: center;
+            margin-top: 2em;
         }
 
         button {
@@ -46,8 +57,12 @@
 </head>
 <body>
     <h1>Weather Result</h1>
-    <p>Temperature: {{ temperature }}</p>
-    <p>Description: {{ description }}</p>
+    <div class="weather-details">
+        <p><strong>Current Temperature:</strong> {{ temperature|floatformat:1 }}&deg;C</p>
+        <p><strong>Min Temp:</strong> {{ temp_min|floatformat:1 }}&deg;C</p>
+        <p><strong>Max Temp:</strong> {{ temp_max|floatformat:1 }}&deg;C</p>
+        <p><strong>Description:</strong> {{ description|capfirst }}</p>
+    </div>
     <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
         <button type="submit">

@@ -30,8 +30,10 @@ def get_weather(request):
         else:
             description = result.json()['weather'][0]['description']
             temperature = float(result.json()['main']['temp']) - 273.15
+            temp_min = float(result.json()['main']['temp_min']) - 273.15
+            temp_max = float(result.json()['main']['temp_max']) - 273.15
 
-            context = {'temperature': temperature, 'description': description}
+            context = {'temperature': temperature, 'description': description, 'temp_min': temp_min, 'temp_max': temp_max}
             return render(request, 'result.html', context)
 
     return render(request, 'index.html', {'error_message': error_message})
