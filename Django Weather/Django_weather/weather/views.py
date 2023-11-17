@@ -23,17 +23,20 @@ def get_weather(request):
 
         if result.status_code != 200:
             # Handle the case where the request to the weather API is not successful
-            error_message = "Error fetching weather data. Please try again later."
+            error_message = "Invalid Location"
         elif result.json()['cod'] == "404":
             # Handle the case where the location is not found
             error_message = "Please enter a valid location"
         else:
             description = result.json()['weather'][0]['description']
-            temperature = float(result.json()['main']['temp']) - 273.15
-            temp_min = float(result.json()['main']['temp_min']) - 273.15
-            temp_max = float(result.json()['main']['temp_max']) - 273.15
+            temperature = float((result.json()['main']['temp']) - 273.15) * 9/5 + 32
+            temp_min = float((result.json()['main']['temp_min']) - 273.15) * 9/5 + 32
+            temp_max = float((result.json()['main']['temp_max']) - 273.15) * 9/5 + 32
+            city = result.json()['name']
+            country = result.json()['sys']['country']
 
-            context = {'temperature': temperature, 'description': description, 'temp_min': temp_min, 'temp_max': temp_max}
+            context = {'temperature': temperature, 'description': description, 'temp_min': temp_min, 'temp_max': temp_max, 'city': city, 'country': country}
+            print(result.json())
             return render(request, 'result.html', context)
 
     return render(request, 'index.html', {'error_message': error_message})

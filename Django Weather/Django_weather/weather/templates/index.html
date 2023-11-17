@@ -66,10 +66,16 @@
         <h1>What's my weather like?</h1>
     </header>
     <main>
-        <h2>Please enter a location: </h2>
+        
+        <h2>Enter a location: </h2>
         <form action="{% url 'get_weather' %}" method="post">
             {% csrf_token %}
             <input type="text" id="location" name="location" required>
+            {% if error_message %}
+                <div class="error-message">
+                    {{ error_message }}
+                </div>
+            {% endif %}
             <button type="submit">Get Weather</button>
         </form>
     </main>
