@@ -29,3 +29,6 @@ py manage.py runserver
 5. You should now be redirected to [http://localhost:8000/](http://localhost:8000/)
 
 Enjoy!
+
+
+![Screenshot (257)](https://github.com/owenlang66/Django_weather/assets/135743320/620e9dd1-c8e9-4584-8312-3b01b63bbb18)
