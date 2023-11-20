@@ -27,3 +27,5 @@ py manage.py runserver
 ```
 
 5. You should now be redirected to [http://localhost:8000/](http://localhost:8000/)
+
+Enjoy!
