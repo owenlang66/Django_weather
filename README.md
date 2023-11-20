@@ -1,5 +1,5 @@
 # Djangocast
-This is a weather application built using Python and the Django framework. This project showcases the usage of an external API call to bring in weather data for an inputted location. It is designed for ease of use by the user with simple results.
+This is a weather application built using Python with Django framework. This project showcases the usage of an external API call to bring in weather data for an inputted location. It is designed for ease of use by the user with simple results.
 
 ## About
 
