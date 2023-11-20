@@ -8,7 +8,7 @@ def get_weather(request):
     if request.method == 'POST':
         location = request.POST.get('location', '')
 
-        # Get the absolute path to the 'api_key.txt' file
+        # Get the path to the 'api_key.txt' file
         api_key_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'api_key.txt'))
 
         try:
@@ -22,10 +22,10 @@ def get_weather(request):
         result = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}')
 
         if result.status_code != 200:
-            # Handle the case where the request to the weather API is not successful
+            # Handle unsuccessful cases
             error_message = "Invalid Location"
         elif result.json()['cod'] == "404":
-            # Handle the case where the location is not found
+            # Handle not found locations
             error_message = "Please enter a valid location"
         else:
             description = result.json()['weather'][0]['description']
